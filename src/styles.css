@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  /*P*/
+  display: flex;
+  /*B*/
+  border: 5px solid #09325b;
+  margin: 0;
+  height: calc(100vh - 10px - 2rem);
+  padding: 1rem;
+  overflow: hidden;
+  /*T*/
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  /*V*/
+
+}

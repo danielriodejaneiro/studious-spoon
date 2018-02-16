@@ -1,20 +1,83 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
+<header>
+  <h1 class="headings">
+    Welcome Daniel
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  <h2 class="headings">
+    You have {{ getTodosLeft() }} tasks
+  </h2>
+</header>
+<section class="active-tasks">
 
+  <!--<template *ngIf="!isAnyTodoLeft()">-->
+  <!--<h1 style="text-align: center">That's impressive!</h1>-->
+  <!--<h2 style="text-align: center">If you don't have any extra task, just go watch Black Panther!</h2>-->
+  <!--</template>-->
+
+  <ng-container class="task" *ngFor="let task of tasks">
+    <div class="task" *ngIf="!task.completed">
+      <div class="my-row labels">
+
+        <span class="category-label" *ngFor="let tag of task.tags"
+              [class.personal]="tag == 'personal'"
+              [class.professional]="tag == 'professional'">
+          {{ tag }}
+        </span>
+
+        <span class="due-date-label">
+          {{ task.due_date }}
+        </span>
+
+      </div>
+
+      <div class="my-row task-main-line">
+
+        <span class="task-id">
+          {{task.id}}
+        </span>
+
+        <input class="task-title"
+               type="text"
+               [class.late]="task.late"
+               [class.not-late]="!task.late"
+               value="{{ task.title }}"
+               title="{{ task.title }}"
+               (click)="task.completed = true">
+
+        <i class="fa fa-clock-o" *ngIf="task.late"></i>
+        <i class="fa fa-dot-circle-o" *ngIf="!task.late"></i>
+
+      </div>
+    </div>
+  </ng-container>
+
+</section>
+
+<section class="inactive-tasks">
+
+  <ng-container class="inactive-task" *ngFor="let task of tasks">
+    <ng-container *ngIf="task.completed">
+      <!--TODO: limit to 3 recently closed tasks -->
+      <i class="fa fa-flag-checkered" *ngIf="task.late" (click)="task.completed = false">
+        <span class="task-id">{{task.id}}</span>
+      </i>
+    </ng-container>
+  </ng-container>
+
+</section>
+
+<footer class="task-details">
+  <!--<h3 class="headings">-->
+  <!--LastTask #12 – Finish this TODO app-->
+  <!--</h3>-->
+  <!--<h3 class="headings">-->
+  <!--Daniel – Done (Feb17th) – Late-->
+  <!--</h3>-->
+  <div class="my-row">
+    <button class="server" (click)="showMessage('Toogle button message and items displayed')">Show only personal
+    </button>
+    <button class="server" (click)="showMessage('Make a GET request')">Reload</button>
+    <button class="server" (click)="showMessage('Make a DELET request')">Delete</button>
+    <button class="server" (click)="showMessage('Make a POST request')">Save</button>
+    <!--<button class="server">Logout (local storage)</button>-->
+  </div>
+</footer>
