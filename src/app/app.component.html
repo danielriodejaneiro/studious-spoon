@@ -8,10 +8,64 @@
 </header>
 <section class="active-tasks">
 
-  <!--<template *ngIf="!isAnyTodoLeft()">-->
-  <!--<h1 style="text-align: center">That's impressive!</h1>-->
-  <!--<h2 style="text-align: center">If you don't have any extra task, just go watch Black Panther!</h2>-->
-  <!--</template>-->
+  <ng-container *ngIf="getTodosLeft() == 0">
+    <h1 style="text-align: center">That's impressive!</h1>
+    <h2 style="text-align: center">If you don't have any extra task, just go watch Black Panther!</h2>
+  </ng-container>
+
+  <ng-container #withTasks *ngIf="getTodosLeft() != 0">
+    <ng-container #editModeEnable *ngIf="editMode==true">
+      <h1>WITH TASKS, EDIT ON</h1>
+
+      <!------------------------------------------------------------------------------------>
+      <!--EDIT MODE (BELOW)-->
+      <ng-container class="task" *ngFor="let task of tasks">
+        <ng-container *ngIf="task.id == taskBeingEdit">
+          <div class="my-row labels">
+            <span class="category-label personal">Personal (-)</span>
+            <span class="category-label professional">Professional (+)</span>
+            <input class="due-date-label" type="date" name="date">
+          </div>
+          <div class="my-row task-main-line">
+            <span class="task-id">{{ task.id }}</span>
+            <input class="task-title"
+                   type="text"
+                   value="{{ task.title }}">
+            <button
+              (click)="onEnableEditMode()">Update
+            </button>
+            <button
+              (click)="onEnableEditMode()">Delete
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!--EDIT MODE (ABOVE)-->
+      <!------------------------------------------------------------------------------------>
+
+    </ng-container>
+    <ng-container #editModeDisable *ngIf="editMode==false" id="new_task">
+      <h1>WITH TASKS, EDIT OFF</h1>
+
+      <div class="my-row labels">
+        <span id="personal_label" class="category-label personal" (click)="personal_label = !personal_label"
+              [class.disabled]="personal_label">Personal (+)</span>
+        <span id="professional_label" class="category-label professional"
+              (click)="professional_label = !professional_label"
+              [class.disabled]="professional_label">Professional (+)</span>
+
+        <input class="due-date-label" type="date" name="date">
+      </div>
+
+      <input class="task-title edit-mode"
+             type="text"
+             value="Create new task">
+      <button
+        (click)="onCreateTask()">Create
+      </button>
+    </ng-container>
+  </ng-container>
 
   <ng-container class="task" *ngFor="let task of tasks">
     <div class="task" *ngIf="!task.completed">
@@ -41,10 +95,13 @@
                [class.not-late]="!task.late"
                value="{{ task.title }}"
                title="{{ task.title }}"
-               (click)="task.completed = true">
+               (click)="changeCompletion(task)">
+        <!--(click)="task.completed = true">-->
 
-        <i class="fa fa-clock-o" *ngIf="task.late"></i>
-        <i class="fa fa-dot-circle-o" *ngIf="!task.late"></i>
+        <i class="fa fa-edit" *ngIf="task.id == taskBeingEdit"
+           (click)="onEnableEditMode(task)"></i>
+        <i class="fa fa-eye" *ngIf="task.id != taskBeingEdit"
+           (click)="onEnableEditMode(task)"></i>
 
       </div>
     </div>
@@ -57,7 +114,7 @@
   <ng-container class="inactive-task" *ngFor="let task of tasks">
     <ng-container *ngIf="task.completed">
       <!--TODO: limit to 3 recently closed tasks -->
-      <i class="fa fa-flag-checkered" *ngIf="task.late" (click)="task.completed = false">
+      <i class="fa fa-flag-checkered" (click)="unarchiveTodo(task)">
         <span class="task-id">{{task.id}}</span>
       </i>
     </ng-container>
@@ -66,18 +123,8 @@
 </section>
 
 <footer class="task-details">
-  <!--<h3 class="headings">-->
-  <!--LastTask #12 – Finish this TODO app-->
-  <!--</h3>-->
-  <!--<h3 class="headings">-->
-  <!--Daniel – Done (Feb17th) – Late-->
-  <!--</h3>-->
   <div class="my-row">
-    <button class="server" (click)="showMessage('Toogle button message and items displayed')">Show only personal
-    </button>
-    <button class="server" (click)="showMessage('Make a GET request')">Reload</button>
-    <button class="server" (click)="showMessage('Make a DELET request')">Delete</button>
-    <button class="server" (click)="showMessage('Make a POST request')">Save</button>
-    <!--<button class="server">Logout (local storage)</button>-->
+    <a class="server" (click)="showMessage('Toogle button message and items displayed')">Show only personal
+    </a>
   </div>
 </footer>

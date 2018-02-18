@@ -62,17 +62,23 @@ footer {
 
   .task {
     padding: .5rem;
-    margin: .5rem auto;
+    margin-top: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-bottom: 0;
     cursor: pointer;
     border-bottom: 2px solid rgba(128, 128, 128, 0.48);
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
 
     &:last-child {
       border-bottom: none;
     }
-    //&:hover {
-    //  background-color: dodgerblue;
-    //  border: 3px solid black;
-    //}
+    &:hover, &:active {
+      background-color: lightskyblue;
+      border: 2px solid red;
+    }
 
   }
   .labels {
@@ -93,6 +99,10 @@ footer {
     }
     &.professional {
       background-color: yellow;
+    }
+    &.disabled {
+      background-color: dimgray;
+      color: darkgray;
     }
   }
   .due-date-label {
@@ -118,10 +128,19 @@ footer {
     //padding-left: 1rem;
     font-weight: bold;
     text-transform: capitalize;
-    font-size: 1.5rem;
+    font-size: 1rem;
     //specifically requested
     cursor: help;
     //background-color: #4b4b4b;
+    border: none;
+    background-color: transparent;
+
+    &.edit-mode {
+      border: 1px solid black;
+      background-color: whitesmoke;
+      font-size: 1.25rem;
+      font-weight: normal;
+    }
 
     &.not-late {
       //color: #09325b;

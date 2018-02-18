@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,10 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 })
 export class AppComponent {
   id: number;
-  todosLeft = 0;
+  editMode: boolean;
+  taskBeingEdit: number;
+  personal_label: boolean;
+  professional_label: boolean;
   tasks = [
     {
       id: 1,
@@ -85,7 +88,7 @@ export class AppComponent {
       author: 'Daniel',
       executor: 'Daniel',
       late: true,
-      completed: true
+      completed: false
     },
     {
       id: 7,
@@ -127,22 +130,22 @@ export class AppComponent {
       completed: false
     }
   ];
+  private todosLeft = 0;
 
   constructor() {
     this.todosLeft = this.tasks.length;
     console.log(this.todosLeft);
-    this.isAnyTodoLeft();
+    // this.isAnyTodoLeft();
+    this.editMode = false;
   }
 
-  changeCompletion() {
-    this.todosLeft !== 0 ? this.minusTodo() : console.log('0 already');
-  }
-
-  isAnyTodoLeft(): boolean {
-    return this.todosLeft === this.tasks.length;
+  changeCompletion(task: any) {
+    this.todosLeft !== 0 ? this.minusTodo() : console.log('No more tasks to complete!');
+    task.completed = true;
   }
 
   getTodosLeft() {
+    console.log(this.todosLeft);
     return this.todosLeft;
   }
 
@@ -156,5 +159,21 @@ export class AppComponent {
 
   private minusTodo() {
     this.todosLeft--;
+  }
+
+  onEnableEditMode(task: any) {
+    this.editMode === true ? this.editMode = false : this.editMode = true;
+    this.taskBeingEdit = task.id;
+  }
+
+  onCreateTask() {
+    this.addTodo();
+    const newItem = {};
+
+  }
+
+  unarchiveTodo(task: any) {
+    task.completed = false;
+    this.addTodo();
   }
 }
