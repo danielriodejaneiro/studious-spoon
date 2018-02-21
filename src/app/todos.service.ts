@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class TodosService {
+export class TodosService implements OnChanges {
   /** PRIVATE PROPERTIES FIRST **/
   tasksTotal: number;
   tasksComplete: number;
@@ -28,6 +28,150 @@ export class TodosService {
       Id: 2,
       Tags: 'personal',
       Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-03',
+      DateDue: '2019-02-02',
+      Executor: '',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'This is us',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-03',
+      DateDue: '2019-02-02',
+      Executor: '',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'This is us',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-03',
+      DateDue: '2019-02-02',
+      Executor: '',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'This is us',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-03',
+      DateDue: '2019-02-02',
+      Executor: '',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'This is us',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '2019-02-02',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
+    }, {
+      Author: 'Daniel',
+      DateDone: '',
+      DateDue: '2019-02-02',
+      Executor: 'Daniel',
+      Id: 2,
+      Tags: 'personal',
+      Title: 'Go watch a movie',
     },
   ];
   editMode: boolean;
@@ -45,21 +189,22 @@ export class TodosService {
     this.tasksComplete = -100;
     this.tasksLeft = -100;
     this.editMode = false;
-    this.updateTasksCount();
+
     this.apiGetAll();
   }
 
   /** PRIVATE CALLS FIRST, PUBLIC LATER **/
+  ngOnChanges() {
+    this.updateTasksCount();
+  }
 
   /** PUBLIC CALLS HERE **/
   apiGetAll() {
-    this.http.get(this.urlBase + this.urlGetAll)
+    return this.http.get(this.urlBase + this.urlGetAll)
       .subscribe(
         data => {
-          console.log(this.tasks);
-          this.tasks = data;
-          console.log(this.tasks);
           this.updateTasksCount();
+          return this.tasks = data;
         });
   }
 
@@ -83,29 +228,31 @@ export class TodosService {
     let i;
     for (i = 0; i < this.tasks.length; i++) {
       this.tasksTotal++;
-      console.log('tasks total: ', this.tasksTotal);
+      console.log('TOTAL TASKS: ', this.tasksTotal);
 
       if (this.tasks[i].DateDone === this.tasks[i].DateDue) {
-        console.log(this.tasks[i].DateDone, this.tasks[i].DateDue);
+        // console.log(this.tasks[i].DateDone, this.tasks[i].DateDue);
         this.tasksComplete++;
-        console.log('tasks complete: ', this.tasksComplete);
+        console.log('DONE --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       } else {
-        console.log(this.tasks[i].DateDone, this.tasks[i].DateDue);
         this.tasksLeft++;
-        console.log('tasks left: ', this.tasksLeft);
+        console.log('LEFT --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       }
     }
   }
 
   getTasksTotal() {
+    // this.updateTasksCount();
     return this.tasksTotal;
   }
 
   getTasksComplete() {
+    // this.updateTasksCount();
     return this.tasksComplete;
   }
 
   getTasksLeft() {
+    // this.updateTasksCount();
     return this.tasksLeft;
   }
 

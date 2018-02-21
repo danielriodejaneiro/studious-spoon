@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {TodosService} from '../todos.service';
 import {HttpClient} from '@angular/common/http';
 
@@ -7,16 +7,21 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit {
-  todoService;
+export class TodoComponent implements OnInit, OnChanges {
+  todoService: TodosService;
   tasks;
 
   constructor(private t: TodosService) {
     this.todoService = t;
+    this.tasks = t.tasks;
   }
 
   ngOnInit() {
-    this.tasks = this.t.apiGetAll();
+    // this.tasks = this.t.apiGetAll();
+  }
+
+  ngOnChanges() {
+    this.tasks = this.todoService.apiGetAll();
   }
 
   onComplete(task: any) {

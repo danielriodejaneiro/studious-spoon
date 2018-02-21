@@ -1,4 +1,4 @@
-header, footer {
+header {
   margin-left: -1rem;
   margin-right: -1rem;
   display: flex;
@@ -7,9 +7,6 @@ header, footer {
   align-items: center;
   text-align: center;
   color: white;
-}
-
-header {
   background-color: #1c5cb9;
   margin-top: -1rem;
   padding-bottom: 10px;

@@ -7,7 +7,7 @@
   <h6 style="color: crimson">That's an erroneous condition.</h6>
 </div>
 
-<ul class="active-tasks" *ngIf="todoService.getTasksTotal() > 0">
+<ul class="active-tasks" *ngIf="t.getTasksTotal() > 0">
   <li class="task" *ngFor="let task of tasks"
       [ngClass]="{completed: task.DateDone == task.DateDue}">
 

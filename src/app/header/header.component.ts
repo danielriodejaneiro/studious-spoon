@@ -7,9 +7,14 @@ import {TodosService} from '../todos.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  tasksDisplayed: number;
+  todosService;
+  display;
 
-  constructor(private tasks: TodosService) {
-    this.tasksDisplayed = tasks.getTasksTotal();
+  constructor(private t: TodosService) {
+    this.todosService = t.getTasksTotal();
+  }
+
+  updateHeader() {
+    this.display = this.todosService.getTasksTotal();
   }
 }
