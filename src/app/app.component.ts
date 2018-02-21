@@ -7,29 +7,9 @@ import {TodosService} from './todos.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  editMode: boolean;
-  taskBeingEdited: number;
+  todoService;
 
-  constructor(private tasks: TodosService) {
-    this.editMode = false;
+  constructor(private t: TodosService) {
+    this.todoService = t;
   }
-
-  showMessage(message: string) {
-    console.log(message);
-  }
-
-  onEnableEditMode(task: any) {
-    this.editMode === true ? this.editMode = false : this.editMode = true;
-    this.taskBeingEdited = task.id;
-  }
-
-  // onCreateTask() {
-  //   this.tasks.addTodo();
-  //   const newItem = {};
-  // }
-  //
-  // unarchiveTodo(task: any) {
-  //   task.completed = false;
-  //   this.addTodo();
-  // }
 }

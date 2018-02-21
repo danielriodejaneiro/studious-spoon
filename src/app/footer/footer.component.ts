@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TodosService} from '../todos.service';
 
 @Component({
@@ -6,12 +6,10 @@ import {TodosService} from '../todos.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
+  todoService;
 
-  constructor(private tasks: TodosService) {
+  constructor(private t: TodosService) {
+    this.todoService = t;
   }
-
-  ngOnInit() {
-  }
-
 }

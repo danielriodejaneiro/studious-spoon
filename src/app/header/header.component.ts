@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TodosService} from '../todos.service';
 
 @Component({
@@ -6,15 +6,10 @@ import {TodosService} from '../todos.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   tasksDisplayed: number;
 
   constructor(private tasks: TodosService) {
-    this.tasksDisplayed = -1;
+    this.tasksDisplayed = tasks.getTasksTotal();
   }
-
-  ngOnInit() {
-    this.tasks.getAll().subscribe(data => console.log(data));
-  }
-
 }

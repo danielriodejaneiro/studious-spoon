@@ -12,6 +12,10 @@ export class TodoAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Add component into view');
   }
 
+  onCreateTask() {
+    console.log('Get task title and send to the server to create a task');
+  }
 }

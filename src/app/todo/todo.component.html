@@ -1,42 +1,21 @@
-<main class="active-tasks">
+<div class="happy" *ngIf="todoService.getTasksTotal() === 0">
+  <h1>That's impressive!</h1>
+  <h2>If you don't have any extra task, just go watch Black Panther!</h2>
+</div>
 
-  <!--<div class="task" *ngFor="let task of tasks">-->
-  <div class="task" *ngFor="let task of task">
-    <div class="my-row labels">
+<div class="happy" *ngIf="todoService.getTasksTotal() < 0">
+  <h6 style="color: crimson">That's an erroneous condition.</h6>
+</div>
 
-        <span class="category-label" *ngFor="let tag of task.tags"
-              [class.personal]="tag == 'personal'"
-              [class.professional]="tag == 'professional'">
-          {{ tag }}
-        </span>
+<ul class="active-tasks" *ngIf="todoService.getTasksTotal() > 0">
+  <li class="task" *ngFor="let task of tasks"
+      [ngClass]="{completed: task.DateDone == task.DateDue}">
 
-      <span class="due-date-label">
-          {{ task.due_date }}
-        </span>
+    <span class="task-id">Task #{{task.Id}} - </span>
 
-    </div>
-
-    <div class="my-row task-main-line">
-
-        <span class="task-id">
-          {{task.id}}
-        </span>
-
-      <input class="task-title"
-             type="text"
-             [class.late]="task.late"
-             [class.not-late]="!task.late"
-             value="{{ task.title }}"
-             title="{{ task.title }}"
-             (click)="changeCompletion(task)">
-      <!--(click)="task.completed = true">-->
-
-      <i class="fa fa-edit" *ngIf="task.id == taskBeingEdit"
-         (click)="onEnableEditMode(task)"></i>
-      <i class="fa fa-eye" *ngIf="task.id != taskBeingEdit"
-         (click)="onEnableEditMode(task)"></i>
-
-    </div>
-  </div>
-</main>
+    <span class="task-title" (click)="onComplete(task)">
+      {{ task.Title }}
+    </span>
+  </li>
+</ul>
 

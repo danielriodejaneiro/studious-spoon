@@ -1,19 +1,21 @@
-<ng-container *ngIf="task.id == taskBeingEdit">
-  <div class="my-row labels">
-    <span class="category-label personal">Personal (-)</span>
-    <span class="category-label professional">Professional (+)</span>
-    <input class="due-date-label" type="date" name="date">
-  </div>
+<!--<ng-container *ngIf="task.id == taskBeingEdit">-->
+<h1>Edit task</h1>
+<ng-container>
+  <!--<div class="my-row labels">-->
+  <!--<span class="category-label personal">Personal (-)</span>-->
+  <!--<span class="category-label professional">Professional (+)</span>-->
+  <!--<input class="due-date-label" type="date" name="date">-->
+  <!--</div>-->
   <div class="my-row task-main-line">
     <span class="task-id">{{ task.id }}</span>
     <input class="task-title"
            type="text"
            value="{{ task.title }}">
-    <button
-      (click)="onEnableEditMode()">Update
+    <button>Update
+      <!--(click)="onEnableEditMode()">Update-->
     </button>
-    <button
-      (click)="onEnableEditMode()">Delete
+    <button>Delete
+      <!--(click)="onEnableEditMode()">Delete-->
     </button>
   </div>
 </ng-container>
