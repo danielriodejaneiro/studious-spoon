@@ -1,0 +1,34 @@
+header, footer {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+footer {
+  margin-bottom: -1rem;
+}
+
+.task-details {
+  background-color: #1c5cb9;
+  border-top: 2px solid gray;
+  color: white;
+
+  .headings {
+    font-size: .85rem;
+  }
+  .my-row {
+    //margin-top: 10px;
+    display: flex;
+  }
+  .server {
+    flex: 1;
+    padding: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

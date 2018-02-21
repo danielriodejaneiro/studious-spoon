@@ -1,0 +1,25 @@
+header, footer {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+header {
+  background-color: #1c5cb9;
+  margin-top: -1rem;
+  padding-bottom: 10px;
+}
+
+.headings {
+  margin: 10px 0 0;
+}
+
+.summary-tasks {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}

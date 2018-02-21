@@ -1,130 +1,46 @@
-<header>
-  <h1 class="headings">
-    Welcome Daniel
-  </h1>
-  <h2 class="headings">
-    You have {{ getTodosLeft() }} tasks
-  </h2>
-</header>
-<section class="active-tasks">
+<app-header></app-header>
 
-  <ng-container *ngIf="getTodosLeft() == 0">
+<aside>
+  <!--<ng-container *ngIf="getTodosLeft() != 0">-->
+  <ng-container>
+
+    <ng-container #editModeEnable *ngIf="editMode==true">
+      <!--EDIT ON-->
+      <app-todo-edit></app-todo-edit>
+    </ng-container>
+
+    <ng-container #editModeDisable *ngIf="editMode==false">
+      <!--EDIT OFF-->
+      <app-todo-add></app-todo-add>
+    </ng-container>
+
+  </ng-container>
+</aside>
+
+<!--MAIN DISPLAY FOR ACTIVE TASKS------------------------------------------------------------>
+
+<!--<main class="active-tasks" *ngIf="getTodosLeft() != 0">-->
+<app-todo></app-todo>
+
+<!--<ng-container *ngIf="getTodosLeft() == 0">-->
+<ng-container>
+  <div class="happy">
     <h1 style="text-align: center">That's impressive!</h1>
     <h2 style="text-align: center">If you don't have any extra task, just go watch Black Panther!</h2>
-  </ng-container>
-
-  <ng-container #withTasks *ngIf="getTodosLeft() != 0">
-    <ng-container #editModeEnable *ngIf="editMode==true">
-      <h1>WITH TASKS, EDIT ON</h1>
-
-      <!------------------------------------------------------------------------------------>
-      <!--EDIT MODE (BELOW)-->
-      <ng-container class="task" *ngFor="let task of tasks">
-        <ng-container *ngIf="task.id == taskBeingEdit">
-          <div class="my-row labels">
-            <span class="category-label personal">Personal (-)</span>
-            <span class="category-label professional">Professional (+)</span>
-            <input class="due-date-label" type="date" name="date">
-          </div>
-          <div class="my-row task-main-line">
-            <span class="task-id">{{ task.id }}</span>
-            <input class="task-title"
-                   type="text"
-                   value="{{ task.title }}">
-            <button
-              (click)="onEnableEditMode()">Update
-            </button>
-            <button
-              (click)="onEnableEditMode()">Delete
-            </button>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <!--EDIT MODE (ABOVE)-->
-      <!------------------------------------------------------------------------------------>
-
-    </ng-container>
-    <ng-container #editModeDisable *ngIf="editMode==false" id="new_task">
-      <h1>WITH TASKS, EDIT OFF</h1>
-
-      <div class="my-row labels">
-        <span id="personal_label" class="category-label personal" (click)="personal_label = !personal_label"
-              [class.disabled]="personal_label">Personal (+)</span>
-        <span id="professional_label" class="category-label professional"
-              (click)="professional_label = !professional_label"
-              [class.disabled]="professional_label">Professional (+)</span>
-
-        <input class="due-date-label" type="date" name="date">
-      </div>
-
-      <input class="task-title edit-mode"
-             type="text"
-             value="Create new task">
-      <button
-        (click)="onCreateTask()">Create
-      </button>
-    </ng-container>
-  </ng-container>
-
-  <ng-container class="task" *ngFor="let task of tasks">
-    <div class="task" *ngIf="!task.completed">
-      <div class="my-row labels">
-
-        <span class="category-label" *ngFor="let tag of task.tags"
-              [class.personal]="tag == 'personal'"
-              [class.professional]="tag == 'professional'">
-          {{ tag }}
-        </span>
-
-        <span class="due-date-label">
-          {{ task.due_date }}
-        </span>
-
-      </div>
-
-      <div class="my-row task-main-line">
-
-        <span class="task-id">
-          {{task.id}}
-        </span>
-
-        <input class="task-title"
-               type="text"
-               [class.late]="task.late"
-               [class.not-late]="!task.late"
-               value="{{ task.title }}"
-               title="{{ task.title }}"
-               (click)="changeCompletion(task)">
-        <!--(click)="task.completed = true">-->
-
-        <i class="fa fa-edit" *ngIf="task.id == taskBeingEdit"
-           (click)="onEnableEditMode(task)"></i>
-        <i class="fa fa-eye" *ngIf="task.id != taskBeingEdit"
-           (click)="onEnableEditMode(task)"></i>
-
-      </div>
-    </div>
-  </ng-container>
-
-</section>
-
-<section class="inactive-tasks">
-
-  <ng-container class="inactive-task" *ngFor="let task of tasks">
-    <ng-container *ngIf="task.completed">
-      <!--TODO: limit to 3 recently closed tasks -->
-      <i class="fa fa-flag-checkered" (click)="unarchiveTodo(task)">
-        <span class="task-id">{{task.id}}</span>
-      </i>
-    </ng-container>
-  </ng-container>
-
-</section>
-
-<footer class="task-details">
-  <div class="my-row">
-    <a class="server" (click)="showMessage('Toogle button message and items displayed')">Show only personal
-    </a>
   </div>
-</footer>
+</ng-container>
+
+<app-footer></app-footer>
+<!--OPTIONAL DISPLAY FOR INACTIVE TASKS------------------------------------------------------------>
+<!--<section class="inactive-tasks">-->
+<!--<ng-container class="inactive-task" *ngFor="let task of tasks">-->
+<!--<ng-container *ngIf="task.completed">-->
+<!--TODO: limit to 3 recently closed tasks -->
+<!--<i class="fa fa-flag-checkered" (click)="unarchiveTodo(task)">-->
+<!--<span class="task-id">{{task.id}}</span>-->
+<!--</i>-->
+<!--</ng-container>-->
+<!--</ng-container>-->
+<!--</section>-->
+<!--BOTTOM PANEL FOR TASKS DETAILS ------------------------------------------------------------>
+<style></style>

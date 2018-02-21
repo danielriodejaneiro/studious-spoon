@@ -1,0 +1,16 @@
+<div class="my-row labels">
+        <span id="personal_label" class="category-label personal" (click)="personal_label = !personal_label"
+              [class.disabled]="personal_label">Personal (+)</span>
+  <span id="professional_label" class="category-label professional"
+        (click)="professional_label = !professional_label"
+        [class.disabled]="professional_label">Professional (+)</span>
+  <input class="due-date-label" type="date" name="date">
+</div>
+<div class="my-row labels">
+  <input class="task-title edit-mode"
+         type="text"
+         value="Create new task">
+  <button
+    (click)="onCreateTask()">Create
+  </button>
+</div>

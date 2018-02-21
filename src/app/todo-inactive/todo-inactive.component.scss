@@ -1,0 +1,36 @@
+/*INACTIVE TASKS*/
+.inactive-tasks {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  //max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: rgb(96, 111, 134);
+  margin-left: -1rem;
+  margin-right: -1rem;
+  color: white;
+
+  .inactive-task {
+    width: 15vw;
+    height: 15vw;
+    font-weight: bold;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 5px solid gray;
+    background-color: lightgray;
+  }
+
+  .fa {
+    width: 30%;
+    margin: 10px 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+}

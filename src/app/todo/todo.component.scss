@@ -1,0 +1,115 @@
+:host {
+  padding: .5rem;
+  margin-top: 0;
+  margin-left: -8px;
+  margin-right: -8px;
+  margin-bottom: 0;
+  cursor: pointer;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.48);
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover, &:active {
+    background-color: lightskyblue;
+    border: 2px solid red;
+  }
+
+}
+
+.labels {
+  align-items: center;
+  text-transform: uppercase;
+  font-size: .5rem;
+  margin: 10px 0 -5px;
+}
+
+.category-label {
+  font-weight: bold;
+  margin-left: 1rem;
+  padding: 2px 6px;
+  min-width: 20%;
+  text-align: center;
+
+  &.personal {
+    background-color: greenyellow;
+  }
+  &.professional {
+    background-color: yellow;
+  }
+  &.disabled {
+    background-color: dimgray;
+    color: darkgray;
+  }
+}
+
+.due-date-label {
+  margin-left: auto;
+  font-size: .75rem;
+  text-decoration: underline;
+}
+
+.task-id {
+  font-weight: bolder;
+  padding: 0 10px 0 0;
+}
+
+.task-main-line {
+  align-items: center;
+
+  //.selected, &:hover .task-title {
+  //  background-color: white;
+  //  color: black;
+  //}
+}
+
+.task-title {
+  width: 100%;
+  //padding-left: 1rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 1rem;
+  //specifically requested
+  cursor: help;
+  //background-color: #4b4b4b;
+  border: none;
+  background-color: transparent;
+
+  &.edit-mode {
+    border: 1px solid black;
+    background-color: whitesmoke;
+    font-size: 1.25rem;
+    font-weight: normal;
+  }
+
+  &.not-late {
+    //color: #09325b;
+    color: #5f5f5f;
+  }
+  &.late {
+    color: crimson;
+    //text-align: right;
+  }
+}
+
+.fa {
+  width: 1rem;
+  margin: .5rem 1.5rem;
+  //height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  //margin-top: -10px;
+  //margin-left: -15px;
+  &:hover::before {
+    content: "\F044";
+  }
+  /*&:hover::after {
+    content: "\F044";
+  }*/
+}
