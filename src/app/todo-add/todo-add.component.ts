@@ -8,11 +8,10 @@ import {TodosService} from '../todos.service';
 })
 export class TodoAddComponent implements OnInit {
 
-  constructor(private tasks: TodosService) {
+  constructor(private t: TodosService) {
   }
 
   ngOnInit() {
-    console.log('Add component into view');
   }
 
   onCreateTask() {

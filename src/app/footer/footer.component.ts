@@ -7,9 +7,9 @@ import {TodosService} from '../todos.service';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  todoService;
+  todosService;
 
   constructor(private t: TodosService) {
-    this.todoService = t;
+    this.todosService = t;
   }
 }

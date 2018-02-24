@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {TodosService} from '../todos.service';
 
 @Component({
@@ -6,15 +6,15 @@ import {TodosService} from '../todos.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnChanges {
   todosService;
-  display;
 
   constructor(private t: TodosService) {
-    this.todosService = t.getTasksTotal();
+    this.todosService = t;
   }
 
-  updateHeader() {
-    this.display = this.todosService.getTasksTotal();
+  ngOnChanges() {
+    // this.todosService.tasksLeft = this.t.tasksLeft;
+    console.log('is anything happening here?!');
   }
 }

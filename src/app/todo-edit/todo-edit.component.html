@@ -5,13 +5,15 @@
        type="text"
        value="{{ task.title }}">
 <div class="flex fr">
-  <button style="flex: 1">
-    Update
-    <!--(click)="onEnableEditMode()">Update-->
+  <button style="flex: 1; background-color: darkseagreen; font-weight: bold; border: none;"
+          (click)="onCompleteTodo(task)">
+    Complete
   </button>
-  <button style="flex: 1">
+  <button style="flex: 1; border: none;" (click)="onUpdateTodo(task)">
+    Update
+  </button>
+  <button style="flex: 1; background-color: lightpink; border: none;" (click)="onDeleteTodo(task)">
     Delete
-    <!--(click)="onEnableEditMode()">Delete-->
   </button>
 </div>
 

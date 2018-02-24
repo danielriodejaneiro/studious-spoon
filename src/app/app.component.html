@@ -1,9 +1,9 @@
 <app-header></app-header>
 
 <!--EDIT ON-->
-<app-todo-edit *ngIf="todoService.editMode==true"></app-todo-edit>
+<app-todo-edit *ngIf="todosService.editMode==true"></app-todo-edit>
 <!--EDIT OFF-->
-<app-todo-add *ngIf="todoService.editMode==false"></app-todo-add>
+<app-todo-add *ngIf="todosService.editMode==false"></app-todo-add>
 
 <app-todo></app-todo>
 

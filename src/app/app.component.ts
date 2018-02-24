@@ -7,9 +7,9 @@ import {TodosService} from './todos.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  todoService;
+  todosService;
 
   constructor(private t: TodosService) {
-    this.todoService = t;
+    this.todosService = t;
   }
 }

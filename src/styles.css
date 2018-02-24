@@ -20,6 +20,7 @@
 body {
   /*P*/
   display: flex;
+  user-select: none;
   /*B*/
   border: 5px solid #09325b;
   margin: 0;

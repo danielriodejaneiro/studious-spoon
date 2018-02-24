@@ -1,9 +1,9 @@
-<div class="happy" *ngIf="todoService.getTasksTotal() === 0">
+<div class="happy" *ngIf="todosService.getTasksTotal() === 0">
   <h1>That's impressive!</h1>
   <h2>If you don't have any extra task, just go watch Black Panther!</h2>
 </div>
 
-<div class="happy" *ngIf="todoService.getTasksTotal() < 0">
+<div class="happy" *ngIf="todosService.getTasksTotal() < 0">
   <h6 style="color: crimson">That's an erroneous condition.</h6>
 </div>
 
@@ -13,7 +13,7 @@
 
     <span class="task-id">Task #{{task.Id}} - </span>
 
-    <span class="task-title" (click)="onComplete(task)">
+    <span class="task-title" (click)="onSelectTask(task)">
       {{ task.Title }}
     </span>
   </li>

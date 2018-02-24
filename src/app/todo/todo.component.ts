@@ -8,43 +8,55 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit, OnChanges {
-  todoService: TodosService;
+  todosService;
   tasks;
 
   constructor(private t: TodosService) {
-    this.todoService = t;
-    this.tasks = t.tasks;
+    this.todosService = t;
   }
 
   ngOnInit() {
+    this.tasks = this.t.tasks;
     // this.tasks = this.t.apiGetAll();
   }
 
   ngOnChanges() {
-    this.tasks = this.todoService.apiGetAll();
+    // this.tasks = this.todosService.apiGetAll();
   }
 
+  onSelectTask(task) {
+    console.log('task selected: ', task.Id);
+    this.todosService.taskBeingEdited = task.Id;
+    this.todosService.editMode ? console.log('Edit mode on: decide your action.') : this.onComplete(task);
+  }
+
+  //
   onComplete(task: any) {
-    // console.log('Mark complete: task ', task.id);
-    task.datedone === task.datedue ? task.datedone = '' : task.datedone = task.datedue;
+    if (task.DateDue === task.DateDone) {
+      task.DateDone = '';
+      console.log('Task ', task.Id, ' re-opened');
+    } else {
+      task.DateDone = task.DateDue;
+      console.log('Task ', task.Id, ' marked as DONE');
+    }
   }
 
-  onUpdate(task: any) {
-    console.log('Update task ', task.id);
-    // this.tasks.apiDelete(task.id);
-    // this.tasks.apiGetAll();
-  }
-
-  onErase(task: any) {
-    console.log('Delete task ', task.id);
-    // this.tasks.apiDelete(task.id);
-    // this.tasks.apiGetAll();
-  }
-
-  onEnableEditMode() {
-    this.todoService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
-    this.todoService.editMode = !this.todoService.editMode;
-    this.todoService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
-  }
+  //
+  // onUpdate(task: any) {
+  //   console.log('Update task ', task.id);
+  //   // this.tasks.apiDelete(task.id);
+  //   // this.tasks.apiGetAll();
+  // }
+  //
+  // onErase(task: any) {
+  //   console.log('Delete task ', task.id);
+  //   // this.tasks.apiDelete(task.id);
+  //   // this.tasks.apiGetAll();
+  // }
+  // onEnableEditMode() {
+  //   this.todosService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
+  //   this.todosService.editMode = !this.todosService.editMode;
+  //   this.todosService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
+  // }
 
 }
