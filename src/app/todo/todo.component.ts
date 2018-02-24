@@ -37,14 +37,13 @@ export class TodoComponent implements OnInit {
   onComplete(task) {
 
     if (this.isTaskCompleted(task)) {
+      // task.DateDone = '';
+      this.todosService.tasks[task.Id].DateDone = '';
+      alert('Task reopened: ' + task.Title);
+      this.todosService.updateTasksCount(task);
+    }
 
-      // console.log('Task ', task.Id, ' re-opened');
-      task.DateDone = '';
-      // console.log(this.tasks);
-
-    } else {
-
-      // console.log('Task is not closed');
+    else {
       if (task.DateDone === '' && task.DateDue !== '') {
         task.DateDone = '2100-12-31';
       } else if (task.DateDone === '' && task.DateDue === '') {
@@ -53,8 +52,6 @@ export class TodoComponent implements OnInit {
       } else {
         task.DateDue = '1999-01-01';
       }
-      // console.log('Task ', task.Id, ' marked as DONE');
-      // console.log(this.tasks);
     }
   }
 }

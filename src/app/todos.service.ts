@@ -74,10 +74,11 @@ export class TodosService {
     this.taskBeingEdited = -1;
 
     this.apiGetAll();
-    this.updateTasksCount(this.tasks);
+    // this.updateTasksCount(this.tasks);
   }
 
   /** LIFECYCLE HOOKS **/
+
   /** PRIVATE CALLS **/
   /** PUBLIC CALLS **/
 
@@ -89,7 +90,10 @@ export class TodosService {
       )
 
       .map(
-        response => this.tasks = response)
+        response => {
+          this.tasks = response;
+          this.updateTasksCount(this.tasks);
+        })
 
       .subscribe(
         response => '',
@@ -104,16 +108,19 @@ export class TodosService {
 
     let i;
     for (i = 0; i < tasks.length; i++) {
-      this.tasksTotal++;
-      // console.log('TOTAL TASKS: ', this.tasksTotal);
 
-      if (tasks[i].DateDone === tasks[i].DateDue) {
+      if (tasks[i].DateDone !== '') {
         this.tasksComplete++;
-        // console.log('DONE --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
-      } else {
-        this.tasksLeft++;
-        // console.log('LEFT --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       }
+      if (tasks[i].DateDone === '') {
+        this.tasksLeft++;
+      }
+      if (tasks[i].DateDone === '' && tasks[i].DateDue === '') {
+        console.log('w/o BOTH date');
+      }
+
+      this.tasksTotal++;
+      // console.log('TOTAL TASKS: ', this.tasksTotal, 'complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
     }
   }
 
