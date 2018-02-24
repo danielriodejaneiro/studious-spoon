@@ -1,9 +1,12 @@
 import {Injectable, OnChanges, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/observable';
 
 @Injectable()
-export class TodosService implements OnInit, OnChanges {
+export class TodosService {
   editMode: boolean;
   taskBeingEdited: number;
   tasks: any = [
@@ -50,12 +53,14 @@ export class TodosService implements OnInit, OnChanges {
       Title: 'This is my fake task 5',
     },
   ];
+
   /** PUBLIC PROPERTIES HERE **/
+  // tasks;
+  /** PRIVATE PROPERTIES **/
   private tasksTotal: number;
+  private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
   private tasksComplete: number;
   private tasksLeft: number;
-  /** PRIVATE PROPERTIES **/
-  private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
   private urlGetAll = '/findall';
   private urlCreate = '/create';
   private urlEdit = '/edit';
@@ -70,41 +75,42 @@ export class TodosService implements OnInit, OnChanges {
     this.taskBeingEdited = -1;
 
     this.apiGetAll();
+    this.updateTasksCount(this.tasks);
+
+    // ;
   }
 
   /** LIFECYCLE HOOKS **/
-  ngOnInit() {
-  }
-
-  ngOnChanges() {
-  }
 
   /** PRIVATE CALLS **/
   /** PUBLIC CALLS **/
   apiGetAll() {
-    this.http.get(this.urlBase + this.urlGetAll)
+    return this.http.get(this.urlBase + this.urlGetAll)
+
+      .catch(
+        error => Observable.throw(error)
+      )
+
+      .map(
+        response => this.tasks = response)
+
       .subscribe(
-        data => {
-          console.log('BEFORE: ', this.tasks);
-          this.tasks = data;
-          console.log('AFTER: ', this.tasks);
-          /* PLACING THE RELOAD HERE IT GETS THE UPDATE FROM 3 TO 15 ITEMS */
-          this.updateTasksCount();
-        }
-      );
+        response => '',
+        error => console.log('rxjs error:', error),
+        () => '');
   }
 
-  updateTasksCount() {
+  updateTasksCount(tasks) {
     this.tasksTotal = 0;
     this.tasksComplete = 0;
     this.tasksLeft = 0;
 
     let i;
-    for (i = 0; i < this.tasks.length; i++) {
+    for (i = 0; i < tasks.length; i++) {
       this.tasksTotal++;
       // console.log('TOTAL TASKS: ', this.tasksTotal);
 
-      if (this.tasks[i].DateDone === this.tasks[i].DateDue) {
+      if (tasks[i].DateDone === tasks[i].DateDue) {
         this.tasksComplete++;
         // console.log('DONE --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       } else {

@@ -16,20 +16,26 @@
 
   .task {
     padding: 2px 8px;
-    color: #414141;
-    font-weight: bold;
+    color: #525252;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &:hover,
     &:active,
     &.active {
       color: black;
-      font-weight: bolder;
+      font-weight: bold;
     }
-
     &.completed {
       text-decoration: line-through;
-      color: darkgray;
+      color: #bdbdbd;
+      font-weight: lighter;
+      &:hover,
+      &:active,
+      &.active {
+        color: #4d4d4d;
+      }
     }
   }
 }
-

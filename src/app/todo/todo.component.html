@@ -7,8 +7,9 @@
   <h6 style="color: crimson">That's an erroneous condition.</h6>
 </div>
 
-<ul class="active-tasks" *ngIf="t.getTasksLeft() > 0">
-  <li class="task" *ngFor="let task of tasks; let i = index"
+<ul class="active-tasks" *ngIf="todosService.getTasksLeft() > 0">
+  <!--<li class="task" *ngFor="let task of todosService.apiGetAll(); let i = index"-->
+  <li class="task" *ngFor="let task of todosService.tasks; let i = index"
       [ngClass]="{completed: isTaskCompleted(task)}"
       (click)="onSelectTask(task, i)">
 

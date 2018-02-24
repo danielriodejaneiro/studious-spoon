@@ -1,21 +1,23 @@
-import {Component, OnChanges} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TodosService} from '../todos.service';
+import {Observable} from 'rxjs/observable';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnChanges {
+export class TodoComponent implements OnInit {
   todosService;
-  tasks;
 
   constructor(private t: TodosService) {
     this.todosService = t;
-    this.tasks = this.todosService.tasks;
+    // this.t.tasks = this.t.apiGetAll();
+    // this.t.updateTasksCount(this.t.tasks);
   }
 
-  ngOnChanges() {
+  ngOnInit() {
+
   }
 
   onSelectTask(task, i) {
