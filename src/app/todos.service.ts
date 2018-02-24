@@ -4,10 +4,6 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TodosService implements OnInit, OnChanges {
-  /** PUBLIC PROPERTIES HERE **/
-  tasksTotal: number;
-  tasksComplete: number;
-  tasksLeft: number;
   editMode: boolean;
   taskBeingEdited: number;
   tasks: any = [
@@ -16,7 +12,7 @@ export class TodosService implements OnInit, OnChanges {
       DateDone: '',
       DateDue: '2018-01-01',
       Executor: '',
-      Id: 1,
+      Id: 13,
       Tags: 'professional',
       Title: 'Learn about Plootoooooooooooo',
     },
@@ -25,13 +21,13 @@ export class TodosService implements OnInit, OnChanges {
       DateDone: '2019-02-02',
       DateDue: '2019-02-02',
       Executor: 'Daniel',
-      Id: 2,
+      Id: 22,
       Tags: 'personal',
       Title: 'Go watch a movie',
     }, {
       Author: 'Daniel',
       DateDone: '2019-02-03',
-      DateDue: '2019-02-02',
+      DateDue: '',
       Executor: '',
       Id: 3,
       Tags: 'personal',
@@ -41,20 +37,23 @@ export class TodosService implements OnInit, OnChanges {
       DateDone: '2019-02-03',
       DateDue: '2019-02-02',
       Executor: '',
-      Id: 4,
+      Id: 412,
       Tags: 'personal',
       Title: 'This is my fake task 4',
     }, {
       Author: 'Daniel',
-      DateDone: '2019-02-03',
-      DateDue: '2019-02-02',
+      DateDone: '',
+      DateDue: '',
       Executor: '',
-      Id: 5,
+      Id: 59,
       Tags: 'personal',
       Title: 'This is my fake task 5',
     },
   ];
-
+  /** PUBLIC PROPERTIES HERE **/
+  private tasksTotal: number;
+  private tasksComplete: number;
+  private tasksLeft: number;
   /** PRIVATE PROPERTIES **/
   private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
   private urlGetAll = '/findall';
@@ -69,19 +68,15 @@ export class TodosService implements OnInit, OnChanges {
     this.tasksLeft = -100;
     this.editMode = false;
     this.taskBeingEdited = -1;
-    this.updateTasksCount();
+
+    this.apiGetAll();
   }
 
   /** LIFECYCLE HOOKS **/
   ngOnInit() {
-    // this.tasks = this.apiGetAll();
-    // this.updateTasksCount();
-    this.apiGetAll();
   }
 
   ngOnChanges() {
-    // this.todosService.tasksLeft = this.t.tasksLeft;
-    console.log('is anything happening here?!');
   }
 
   /** PRIVATE CALLS **/
@@ -89,7 +84,13 @@ export class TodosService implements OnInit, OnChanges {
   apiGetAll() {
     this.http.get(this.urlBase + this.urlGetAll)
       .subscribe(
-        data => this.tasks = data
+        data => {
+          console.log('BEFORE: ', this.tasks);
+          this.tasks = data;
+          console.log('AFTER: ', this.tasks);
+          /* PLACING THE RELOAD HERE IT GETS THE UPDATE FROM 3 TO 15 ITEMS */
+          this.updateTasksCount();
+        }
       );
   }
 
@@ -101,15 +102,14 @@ export class TodosService implements OnInit, OnChanges {
     let i;
     for (i = 0; i < this.tasks.length; i++) {
       this.tasksTotal++;
-      console.log('TOTAL TASKS: ', this.tasksTotal);
+      // console.log('TOTAL TASKS: ', this.tasksTotal);
 
       if (this.tasks[i].DateDone === this.tasks[i].DateDue) {
-        // console.log(this.tasks[i].DateDone, this.tasks[i].DateDue);
         this.tasksComplete++;
-        console.log('DONE --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
+        // console.log('DONE --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       } else {
         this.tasksLeft++;
-        console.log('LEFT --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
+        // console.log('LEFT --- complete: ', this.tasksComplete, 'left: ', this.tasksLeft);
       }
     }
   }
@@ -119,30 +119,29 @@ export class TodosService implements OnInit, OnChanges {
   }
 
   getTasksTotal() {
-    // this.updateTasksCount();
     return this.tasksTotal;
   }
 
   getTasksComplete() {
-    // this.updateTasksCount();
     return this.tasksComplete;
   }
 
   getTasksLeft() {
-    // this.updateTasksCount();
     return this.tasksLeft;
   }
 
+  /* THIS ACTION SHOULD HAPPEN ONLY WHEN COMPLETION, CREATION OR DELETION IS CALLED */
+  // this.updateTasksCount();
 
-  apiCreate(id: string, title: string) {
-    return this.http.get(this.urlBase + this.urlCreate);
-  }
-
-  apiEdit(id: string, title: string) {
-    return this.http.get(this.urlBase + this.urlEdit);
-  }
-
-  apiDelete(id: string) {
-    return this.http.get(this.urlBase + this.urlDelete);
-  }
+  // apiCreate(id: string, title: string) {
+  //   return this.http.get(this.urlBase + this.urlCreate);
+  // }
+  //
+  // apiEdit(id: string, title: string) {
+  //   return this.http.get(this.urlBase + this.urlEdit);
+  // }
+  //
+  // apiDelete(id: string) {
+  //   return this.http.get(this.urlBase + this.urlDelete);
+  // }
 }
