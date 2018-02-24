@@ -1,27 +1,18 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {TodosService} from '../todos.service';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit, OnChanges {
+export class TodoComponent {
   todosService;
   tasks;
 
   constructor(private t: TodosService) {
     this.todosService = t;
-  }
-
-  ngOnInit() {
-    this.tasks = this.t.tasks;
-    // this.tasks = this.t.apiGetAll();
-  }
-
-  ngOnChanges() {
-    // this.tasks = this.todosService.apiGetAll();
+    this.tasks = this.todosService.tasks;
   }
 
   onSelectTask(task) {
@@ -30,33 +21,32 @@ export class TodoComponent implements OnInit, OnChanges {
     this.todosService.editMode ? console.log('Edit mode on: decide your action.') : this.onComplete(task);
   }
 
-  //
-  onComplete(task: any) {
-    if (task.DateDue === task.DateDone) {
-      task.DateDone = '';
-      console.log('Task ', task.Id, ' re-opened');
-    } else {
-      task.DateDone = task.DateDue;
-      console.log('Task ', task.Id, ' marked as DONE');
-    }
+  isTaskCompleted(task) {
+    return task.DateDue !== '' && task.DateDone !== '';
   }
 
-  //
-  // onUpdate(task: any) {
-  //   console.log('Update task ', task.id);
-  //   // this.tasks.apiDelete(task.id);
-  //   // this.tasks.apiGetAll();
-  // }
-  //
-  // onErase(task: any) {
-  //   console.log('Delete task ', task.id);
-  //   // this.tasks.apiDelete(task.id);
-  //   // this.tasks.apiGetAll();
-  // }
-  // onEnableEditMode() {
-  //   this.todosService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
-  //   this.todosService.editMode = !this.todosService.editMode;
-  //   this.todosService.editMode === true ? console.log('Edit mode on!') : console.log('Edit mode off!');
-  // }
+  onComplete(task) {
 
+    if (this.isTaskCompleted(task)) {
+
+      console.log('Task ', task.Id, ' re-opened');
+      task.DateDone = '';
+      console.log(this.tasks);
+
+    } else {
+
+      console.log('Task is not closed');
+
+      if (task.DateDone === '' && task.DateDue !== '') {
+        task.DateDone = '2100-12-31';
+      } else if (task.DateDone === '' && task.DateDue === '') {
+        task.DateDone = '2100-12-31';
+        task.DateDue = '1999-01-01';
+      } else {
+        task.DateDue = '1999-01-01';
+      }
+      console.log('Task ', task.Id, ' marked as DONE');
+      console.log(this.tasks);
+    }
+  }
 }

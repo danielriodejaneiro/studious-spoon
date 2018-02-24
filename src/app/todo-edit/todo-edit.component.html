@@ -3,16 +3,16 @@
 <span class="task-id">{{ task.id }}</span>
 <input class="task-title"
        type="text"
-       value="{{ task.title }}">
+       value="{{ task.title || 'Change here the title of the task' }}">
 <div class="flex fr">
-  <button style="flex: 1; background-color: darkseagreen; font-weight: bold; border: none;"
+  <button style="background-color: darkseagreen; font-weight: bold;"
           (click)="onCompleteTodo(task)">
     Complete
   </button>
-  <button style="flex: 1; border: none;" (click)="onUpdateTodo(task)">
+  <button (click)="onUpdateTodo(task)">
     Update
   </button>
-  <button style="flex: 1; background-color: lightpink; border: none;" (click)="onDeleteTodo(task)">
+  <button style="background-color: lightpink;" (click)="onDeleteTodo(task)">
     Delete
   </button>
 </div>
