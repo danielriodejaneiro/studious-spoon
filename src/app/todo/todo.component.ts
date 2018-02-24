@@ -17,7 +17,6 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   onSelectTask(task, i) {

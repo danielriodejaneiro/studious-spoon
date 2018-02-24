@@ -8,12 +8,12 @@
 </div>
 
 <ul class="active-tasks" *ngIf="todosService.getTasksLeft() > 0">
-  <!--<li class="task" *ngFor="let task of todosService.apiGetAll(); let i = index"-->
+
   <li class="task" *ngFor="let task of todosService.tasks; let i = index"
       [ngClass]="{completed: isTaskCompleted(task)}"
       (click)="onSelectTask(task, i)">
 
-    <span class="task-id">Task #{{task.Id}} - </span>
+    <span class="task-id">{{task.Id}}</span>
 
     <span class="task-title">
       {{ task.Title }}

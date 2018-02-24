@@ -10,9 +10,9 @@
 }
 
 .active-tasks {
-  list-style: square;
-  list-style-position: inside;
+  list-style: none;
   padding: 0;
+  margin: 0;
 
   .task {
     padding: 2px 8px;
@@ -21,21 +21,34 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    &:hover,
-    &:active,
-    &.active {
+    &:hover {
       color: black;
-      font-weight: bold;
+    }
+
+    &:not(.completed) {
+      &::before {
+        content: "\2615";
+      }
     }
     &.completed {
       text-decoration: line-through;
       color: #bdbdbd;
       font-weight: lighter;
+
+      &::before {
+        content: "\26D4";
+      }
+
       &:hover,
       &:active,
       &.active {
         color: #4d4d4d;
       }
     }
+
+    .task-id::after {
+      content: " \21E2 ";
+    }
   }
+
 }

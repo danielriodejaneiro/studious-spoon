@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/observable';
 
 @Injectable()
 export class TodosService {
-  editMode: boolean;
+  private editMode: boolean;
   taskBeingEdited: number;
   tasks: any = [
     {
@@ -55,7 +55,6 @@ export class TodosService {
   ];
 
   /** PUBLIC PROPERTIES HERE **/
-  // tasks;
   /** PRIVATE PROPERTIES **/
   private tasksTotal: number;
   private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
@@ -76,14 +75,12 @@ export class TodosService {
 
     this.apiGetAll();
     this.updateTasksCount(this.tasks);
-
-    // ;
   }
 
   /** LIFECYCLE HOOKS **/
-
   /** PRIVATE CALLS **/
   /** PUBLIC CALLS **/
+
   apiGetAll() {
     return this.http.get(this.urlBase + this.urlGetAll)
 
@@ -122,6 +119,10 @@ export class TodosService {
 
   toogleEditMode() {
     return this.editMode = !this.editMode;
+  }
+
+  getEditMode() {
+    return this.editMode;
   }
 
   getTasksTotal() {
