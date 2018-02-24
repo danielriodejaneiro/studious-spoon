@@ -5,9 +5,13 @@
   text-align: center;
 
   @media all and (min-width: 1024px) {
-    flex-direction: row;
-    justify-content: space-between;
+    //flex-direction: row;
+    //justify-content: space-between;
     background-color: #c6cdf9;
+
+    button {
+      margin-top: 0;
+    }
   }
 }
 
@@ -18,4 +22,9 @@ button {
   background-color: #1c5cb9;
   color: white;
   font-weight: bold;
+}
+
+.task-title {
+  border: 1px solid black;
+  padding: 4px 6px 3px;
 }

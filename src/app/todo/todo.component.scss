@@ -11,15 +11,19 @@
 
 .active-tasks {
   list-style: square;
+  list-style-position: inside;
+  padding: 0;
 
   .task {
     padding: 2px 8px;
-    color: black;
+    color: #414141;
+    font-weight: bold;
 
     &:hover,
     &:active,
     &.active {
-      font-weight: bold;
+      color: black;
+      font-weight: bolder;
     }
 
     &.completed {

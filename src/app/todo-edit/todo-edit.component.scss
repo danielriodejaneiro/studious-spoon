@@ -16,3 +16,16 @@ button {
   flex: 1;
   border: none;
 }
+
+.task-id {
+  border: 1px solid black;
+  color: white;
+  background-color: #1c5cb9;
+  padding: 2px 6px;
+}
+
+.task-title {
+  flex: 1;
+  border: 1px solid black;
+  padding-left: 5px;
+}

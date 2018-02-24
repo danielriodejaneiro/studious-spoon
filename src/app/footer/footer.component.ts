@@ -12,4 +12,11 @@ export class FooterComponent {
   constructor(private t: TodosService) {
     this.todosService = t;
   }
+
+  checkIfEditEnable() {
+    this.todosService.toogleEditMode();
+    if (this.todosService.taskBeingEdited === -1) {
+      this.todosService.taskBeingEdited = 0;
+    }
+  }
 }

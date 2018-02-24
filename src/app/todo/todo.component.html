@@ -8,9 +8,9 @@
 </div>
 
 <ul class="active-tasks" *ngIf="t.getTasksLeft() > 0">
-  <li class="task" *ngFor="let task of tasks"
+  <li class="task" *ngFor="let task of tasks; let i = index"
       [ngClass]="{completed: isTaskCompleted(task)}"
-      (click)="onSelectTask(task)">
+      (click)="onSelectTask(task, i)">
 
     <span class="task-id">Task #{{task.Id}} - </span>
 

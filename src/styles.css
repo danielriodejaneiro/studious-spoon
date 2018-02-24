@@ -1,17 +1,15 @@
-* {
-  transition-delay: 0ms;
-  transition-duration: 100ms;
-  transition-property: background-color;
-  transition-timing-function: ease-in-out;
+li {
+  transition-duration: 200ms;
+  transition-property: all;
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 1024px) {
   body {
     background-color: black;
   }
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   h1 {
     margin: 0;
   }

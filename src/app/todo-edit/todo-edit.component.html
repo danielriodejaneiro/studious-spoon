@@ -1,9 +1,11 @@
 <h1>Edit task</h1>
 
-<span class="task-id">{{ task.id }}</span>
-<input class="task-title"
-       type="text"
-       value="{{ task.title || 'Change here the title of the task' }}">
+<div class="flex fr">
+  <span class="task-id">{{ task.Id }}</span>
+  <input class="task-title"
+         type="text"
+         value="{{ task.Title || 'Change here the title of the task' }}">
+</div>
 <div class="flex fr">
   <button style="background-color: darkseagreen; font-weight: bold;"
           (click)="onCompleteTodo(task)">

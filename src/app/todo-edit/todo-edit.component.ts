@@ -7,15 +7,14 @@ import {TodosService} from '../todos.service';
   styleUrls: ['./todo-edit.component.scss']
 })
 export class TodoEditComponent implements OnInit {
-  todosService;
+
   task;
 
   constructor(private t: TodosService) {
-    this.todosService = t.tasks;
-    this.task = t.tasks[0];
   }
 
   ngOnInit() {
+    this.task = this.t.tasks[this.t.taskBeingEdited];
   }
 
   onCompleteTodo(task) {

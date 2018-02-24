@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {TodosService} from '../todos.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {TodosService} from '../todos.service';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent {
+export class TodoComponent implements OnChanges {
   todosService;
   tasks;
 
@@ -15,10 +15,18 @@ export class TodoComponent {
     this.tasks = this.todosService.tasks;
   }
 
-  onSelectTask(task) {
-    console.log('task selected: ', task.Id);
-    this.todosService.taskBeingEdited = task.Id;
-    this.todosService.editMode ? console.log('Edit mode on: decide your action.') : this.onComplete(task);
+  ngOnChanges() {
+  }
+
+  onSelectTask(task, i) {
+    console.log('position:', i, ' // task:', task.Id);
+
+    if (!this.todosService.editMode) {
+      this.onComplete(task);
+    } else {
+      this.todosService.taskBeingEdited = i;
+      // this.todosService.updateTasksCount();
+    }
   }
 
   isTaskCompleted(task) {
@@ -29,14 +37,13 @@ export class TodoComponent {
 
     if (this.isTaskCompleted(task)) {
 
-      console.log('Task ', task.Id, ' re-opened');
+      // console.log('Task ', task.Id, ' re-opened');
       task.DateDone = '';
-      console.log(this.tasks);
+      // console.log(this.tasks);
 
     } else {
 
-      console.log('Task is not closed');
-
+      // console.log('Task is not closed');
       if (task.DateDone === '' && task.DateDue !== '') {
         task.DateDone = '2100-12-31';
       } else if (task.DateDone === '' && task.DateDue === '') {
@@ -45,8 +52,8 @@ export class TodoComponent {
       } else {
         task.DateDue = '1999-01-01';
       }
-      console.log('Task ', task.Id, ' marked as DONE');
-      console.log(this.tasks);
+      // console.log('Task ', task.Id, ' marked as DONE');
+      // console.log(this.tasks);
     }
   }
 }
