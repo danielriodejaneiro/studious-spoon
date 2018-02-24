@@ -1,13 +1,17 @@
 <h1>Edit task</h1>
-<div>
-  <span class="task-id">{{ task.id }}</span>
-  <input class="task-title"
-         type="text"
-         value="{{ task.title }}">
-  <button>Update
+
+<span class="task-id">{{ task.id }}</span>
+<input class="task-title"
+       type="text"
+       value="{{ task.title }}">
+<div class="flex fr">
+  <button style="flex: 1">
+    Update
     <!--(click)="onEnableEditMode()">Update-->
   </button>
-  <button>Delete
+  <button style="flex: 1">
+    Delete
     <!--(click)="onEnableEditMode()">Delete-->
   </button>
 </div>
+

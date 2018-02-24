@@ -3,9 +3,29 @@
   box-shadow: inset 0 0 10px black;
   overflow-y: auto;
   padding: 1.5rem;
+
+  @media all and (min-width: 1024px) {
+    background-color: white;
+  }
 }
 
-.completed {
-  text-decoration: line-through;
-  color: gray;
+.active-tasks {
+  list-style: square;
+
+  .task {
+    padding: 2px 8px;
+    color: black;
+
+    &:hover,
+    &:active,
+    &.active {
+      font-weight: bold;
+    }
+
+    &.completed {
+      text-decoration: line-through;
+      color: darkgray;
+    }
+  }
 }
+

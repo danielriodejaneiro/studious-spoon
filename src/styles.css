@@ -11,6 +11,12 @@
   }
 }
 
+@media all and (max-width: 768px) {
+  h1 {
+    margin: 0;
+  }
+}
+
 body {
   /*P*/
   display: flex;
