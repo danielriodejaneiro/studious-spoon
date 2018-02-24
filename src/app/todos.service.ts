@@ -1,15 +1,15 @@
-import {Injectable, OnChanges} from '@angular/core';
+import {Injectable, OnChanges, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class TodosService implements OnChanges {
-  /** PRIVATE PROPERTIES FIRST **/
+export class TodosService implements OnInit, OnChanges {
+  /** PUBLIC PROPERTIES HERE **/
   tasksTotal: number;
   tasksComplete: number;
   tasksLeft: number;
-  /** THEN PUBLIC PROPERTIES HERE **/
-
+  editMode: boolean;
+  taskBeingEdited: number;
   tasks: any = [
     {
       Author: 'Daniel',
@@ -33,191 +33,64 @@ export class TodosService implements OnChanges {
       DateDone: '2019-02-03',
       DateDue: '2019-02-02',
       Executor: '',
-      Id: 2,
+      Id: 3,
       Tags: 'personal',
-      Title: 'This is us',
+      Title: 'This is my fake task 3',
     }, {
       Author: 'Daniel',
       DateDone: '2019-02-03',
       DateDue: '2019-02-02',
       Executor: '',
-      Id: 2,
+      Id: 4,
       Tags: 'personal',
-      Title: 'This is us',
+      Title: 'This is my fake task 4',
     }, {
       Author: 'Daniel',
       DateDone: '2019-02-03',
       DateDue: '2019-02-02',
       Executor: '',
-      Id: 2,
+      Id: 5,
       Tags: 'personal',
-      Title: 'This is us',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-03',
-      DateDue: '2019-02-02',
-      Executor: '',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'This is us',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '2019-02-02',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
-    }, {
-      Author: 'Daniel',
-      DateDone: '',
-      DateDue: '2019-02-02',
-      Executor: 'Daniel',
-      Id: 2,
-      Tags: 'personal',
-      Title: 'Go watch a movie',
+      Title: 'This is my fake task 5',
     },
   ];
-  editMode: boolean;
-  taskBeingEdited: number;
+
+  /** PRIVATE PROPERTIES **/
   private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
   private urlGetAll = '/findall';
   private urlCreate = '/create';
   private urlEdit = '/edit';
   private urlDelete = '/delete';
 
-  /** LIFECYCLE HOOKS **/
   /** CONSTRUCTOR **/
   constructor(private http: HttpClient) {
     this.tasksTotal = -100;
     this.tasksComplete = -100;
     this.tasksLeft = -100;
     this.editMode = false;
-
-    this.apiGetAll();
-  }
-
-  /** PRIVATE CALLS FIRST, PUBLIC LATER **/
-  ngOnChanges() {
+    this.taskBeingEdited = -1;
     this.updateTasksCount();
   }
 
-  /** PUBLIC CALLS HERE **/
+  /** LIFECYCLE HOOKS **/
+  ngOnInit() {
+    // this.tasks = this.apiGetAll();
+    // this.updateTasksCount();
+    this.apiGetAll();
+  }
+
+  ngOnChanges() {
+    // this.todosService.tasksLeft = this.t.tasksLeft;
+    console.log('is anything happening here?!');
+  }
+
+  /** PRIVATE CALLS **/
+  /** PUBLIC CALLS **/
   apiGetAll() {
-    return this.http.get(this.urlBase + this.urlGetAll)
+    this.http.get(this.urlBase + this.urlGetAll)
       .subscribe(
-        data => {
-          this.updateTasksCount();
-          return this.tasks = data;
-        });
-  }
-
-  apiCreate(id: string, title: string) {
-    return this.http.get(this.urlBase + this.urlCreate);
-  }
-
-  apiEdit(id: string, title: string) {
-    return this.http.get(this.urlBase + this.urlEdit);
-  }
-
-  apiDelete(id: string) {
-    return this.http.get(this.urlBase + this.urlDelete);
+        data => this.tasks = data
+      );
   }
 
   updateTasksCount() {
@@ -241,6 +114,10 @@ export class TodosService implements OnChanges {
     }
   }
 
+  toogleEditMode() {
+    return this.editMode = !this.editMode;
+  }
+
   getTasksTotal() {
     // this.updateTasksCount();
     return this.tasksTotal;
@@ -256,7 +133,16 @@ export class TodosService implements OnChanges {
     return this.tasksLeft;
   }
 
-  toogleEditMode() {
-    return this.editMode = !this.editMode;
+
+  apiCreate(id: string, title: string) {
+    return this.http.get(this.urlBase + this.urlCreate);
+  }
+
+  apiEdit(id: string, title: string) {
+    return this.http.get(this.urlBase + this.urlEdit);
+  }
+
+  apiDelete(id: string) {
+    return this.http.get(this.urlBase + this.urlDelete);
   }
 }
