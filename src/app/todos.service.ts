@@ -1,9 +1,9 @@
 import {Injectable, OnChanges, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/observable';
 
 @Injectable()
 export class TodosService {
@@ -57,7 +57,7 @@ export class TodosService {
   /** PUBLIC PROPERTIES HERE **/
   /** PRIVATE PROPERTIES **/
   private tasksTotal: number;
-  private urlBase = 'http://todo101-api.azurewebsites.net/ServiceTodo.svc';
+  private urlBase = 'https://todo101-api.azurewebsites.net/ServiceTodo.svc';
   private tasksComplete: number;
   private tasksLeft: number;
   private urlGetAll = '/findall';
