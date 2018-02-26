@@ -20,12 +20,12 @@ export class TodoComponent implements OnInit {
   }
 
   onSelectTask(task, i) {
-    console.log('position:', i, ' // task:', task.Id);
+    console.log('list #:', i, ' // ID:', task.Id);
 
     if (!this.todosService.editMode) {
-      this.onComplete(task);
+      this.onComplete(task, i);
     } else {
-      this.todosService.taskBeingEdited = i;
+      this.todosService.taskBeingEdited = task.Id;
       // this.todosService.updateTasksCount();
     }
   }
@@ -34,12 +34,11 @@ export class TodoComponent implements OnInit {
     return task.DateDue !== '' && task.DateDone !== '';
   }
 
-  onComplete(task) {
+  onComplete(task, i) {
 
     if (this.isTaskCompleted(task)) {
       // task.DateDone = '';
-      this.todosService.tasks[task.Id].DateDone = '';
-      alert('Task reopened: ' + task.Title);
+      this.todosService.tasks[i].DateDone = '';
       this.todosService.updateTasksCount(task);
     }
 
