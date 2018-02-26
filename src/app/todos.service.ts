@@ -1,5 +1,5 @@
 import {Injectable, OnChanges, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -9,6 +9,14 @@ import 'rxjs/add/operator/map';
 export class TodosService {
   private editMode: boolean;
   taskBeingEdited: number;
+  biggestID: number;
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
   tasks: any = [
     {
       Author: 'Daniel',
@@ -72,7 +80,7 @@ export class TodosService {
     this.tasksLeft = -100;
     this.editMode = false;
     this.taskBeingEdited = -1;
-
+    this.biggestID = -1;
     this.apiGetAll();
     // this.updateTasksCount(this.tasks);
   }
@@ -84,20 +92,89 @@ export class TodosService {
 
   apiGetAll() {
     return this.http.get(this.urlBase + this.urlGetAll)
-
       .catch(
         error => Observable.throw(error)
       )
-
       .map(
         response => {
           this.tasks = response;
           this.updateTasksCount(this.tasks);
         })
-
       .subscribe(
         response => '',
-        error => console.log('rxjs error:', error),
+        error => console.log('apiGetAll() error:', error),
+        () => '');
+  }
+
+  /* THIS ACTION SHOULD HAPPEN ONLY WHEN COMPLETION, CREATION OR DELETION IS CALLED */
+
+  // this.updateTasksCount();
+
+  apiCreate() {
+    const todo = {
+      'Author': 'DanieL Santos',
+      'DateDone': '',
+      'DateDue': '2018-06-27',
+      'Executor': 'Daniel',
+      'Tags': 'personal',
+      'Title': 'Brand new personal tasks' + this.biggestID,
+      'Id': this.biggestID++
+    };
+    return this.http.post(this.urlBase + this.urlCreate, todo, this.httpOptions)
+      .catch(
+        error => Observable.throw(error)
+      )
+      .map(
+        response => {
+          console.log('creation result: ', response);
+          this.apiGetAll();
+        })
+      .subscribe(
+        response => '',
+        error => console.log('apiCreate() error:', error),
+        () => '');
+  }
+
+  //
+  apiEdit(id: string, title: string) {
+    return this.http.get(this.urlBase + this.urlEdit)
+      .catch(
+        error => Observable.throw(error)
+      )
+      .map(
+        response => {
+          console.log('edit result: ', response);
+          this.apiGetAll();
+        })
+      .subscribe(
+        response => '',
+        error => console.log('apiEdit() error:', error),
+        () => '');
+  }
+
+  //
+  apiDelete(id: number) {
+    const todo = {
+      'Author': '',
+      'DateDone': '',
+      'DateDue': '',
+      'Executor': '',
+      'Tags': '',
+      'Title': '-- deleted --',
+      'Id': id
+    };
+    return this.http.put(this.urlBase + this.urlDelete, this.httpOptions)
+      .catch(
+        error => Observable.throw(error)
+      )
+      .map(
+        response => {
+          console.log('delete result: ', response);
+          this.apiGetAll();
+        })
+      .subscribe(
+        response => '',
+        error => console.log('apiDelete() error:', error),
         () => '');
   }
 
@@ -105,9 +182,15 @@ export class TodosService {
     this.tasksTotal = 0;
     this.tasksComplete = 0;
     this.tasksLeft = 0;
+    this.biggestID = 0;
 
     let i;
     for (i = 0; i < tasks.length; i++) {
+      if (this.biggestID < tasks[i].Id) {
+        // console.log(i, 'old biggestID', this.biggestID);
+        this.biggestID = tasks[i].Id;
+        console.log(i, 'new biggestID', this.biggestID);
+      }
 
       if (tasks[i].DateDone !== '') {
         this.tasksComplete++;
@@ -143,19 +226,4 @@ export class TodosService {
   getTasksLeft() {
     return this.tasksLeft;
   }
-
-  /* THIS ACTION SHOULD HAPPEN ONLY WHEN COMPLETION, CREATION OR DELETION IS CALLED */
-  // this.updateTasksCount();
-
-  // apiCreate(id: string, title: string) {
-  //   return this.http.get(this.urlBase + this.urlCreate);
-  // }
-  //
-  // apiEdit(id: string, title: string) {
-  //   return this.http.get(this.urlBase + this.urlEdit);
-  // }
-  //
-  // apiDelete(id: string) {
-  //   return this.http.get(this.urlBase + this.urlDelete);
-  // }
 }

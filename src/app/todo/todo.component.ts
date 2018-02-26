@@ -24,9 +24,9 @@ export class TodoComponent implements OnInit {
 
     if (!this.todosService.editMode) {
       this.onComplete(task, i);
+      this.todosService.updateTasksCount(this.todosService.tasks);
     } else {
       this.todosService.taskBeingEdited = task.Id;
-      // this.todosService.updateTasksCount();
     }
   }
 
@@ -39,7 +39,7 @@ export class TodoComponent implements OnInit {
     if (this.isTaskCompleted(task)) {
       // task.DateDone = '';
       this.todosService.tasks[i].DateDone = '';
-      this.todosService.updateTasksCount(task);
+      this.todosService.updateTasksCount(this.todosService.tasks);
     }
 
     else {

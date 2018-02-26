@@ -15,6 +15,6 @@ export class TodoAddComponent implements OnInit {
   }
 
   onCreateTask() {
-    console.log('Get task title and send to the server to create a task');
+    this.t.apiCreate();
   }
 }

@@ -1,8 +1,3 @@
-li {
-  transition-duration: 200ms;
-  transition-property: all;
-}
-
 @media all and (min-width: 1024px) {
   body {
     background-color: black;
@@ -18,18 +13,22 @@ li {
 body {
   /*P*/
   display: flex;
-  user-select: none;
   /*B*/
+  height: calc(100vh - 10vh);
+  margin: 5vh 0;
   border: 5px solid #09325b;
-  margin: 0;
-  height: calc(100vh - 10px);
-  overflow: hidden;
   /*T*/
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 16px;
   /*V*/
+  overflow: hidden;
+  user-select: none;
 }
 
+li {
+  transition-duration: 200ms;
+  transition-property: all;
+}
 .flex {
   display: flex;
 }

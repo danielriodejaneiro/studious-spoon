@@ -11,25 +11,25 @@ export class TodoEditComponent implements OnInit {
   task;
 
   constructor(private t: TodosService) {
-  }
-
-  ngOnInit() {
     this.task = this.t.tasks[this.t.taskBeingEdited];
   }
 
-  onCompleteTodo(task) {
-    this.task = task;
-    console.log('complete: ', this.task);
+  ngOnInit() {
   }
 
+  // onCompleteTodo(task) {
+  //   this.task = task;
+  //   console.log('complete: ', this.task);
+  // }
+
   onUpdateTodo(task) {
-    this.task = task;
-    console.log('update: ', this.task);
+    console.log('Edited');
+    this.t.apiEdit('', '');
   }
 
   onDeleteTodo(task) {
-    this.task = task;
-    console.log('delete: ', this.task);
+    console.log('Deleted');
+    this.t.apiDelete(task.id);
   }
 
 }
