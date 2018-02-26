@@ -22,9 +22,13 @@ button {
   background-color: #1c5cb9;
   color: white;
   font-weight: bold;
+  min-height: 30px;
+  font-size: 18px;
 }
 
 .task-title {
   border: 1px solid black;
   padding: 4px 6px 6px;
+  min-height: 40px;
+  font-size: 24px;
 }
