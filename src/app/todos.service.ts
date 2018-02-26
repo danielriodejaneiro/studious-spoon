@@ -189,7 +189,7 @@ export class TodosService {
       if (this.biggestID < tasks[i].Id) {
         // console.log(i, 'old biggestID', this.biggestID);
         this.biggestID = tasks[i].Id;
-        console.log(i, 'new biggestID', this.biggestID);
+        // console.log(i, 'new biggestID', this.biggestID);
       }
 
       if (tasks[i].DateDone !== '') {
