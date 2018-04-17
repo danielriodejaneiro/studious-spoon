@@ -1,7 +1,7 @@
-import {Injectable, OnChanges, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable, OnChanges, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -12,9 +12,9 @@ export class TodosService {
   biggestID: number;
 
   httpOptions = {
-    headers: new HttpHeaders({
+    headers: new HttpHeaders( {
       'Content-Type': 'application/json'
-    })
+    } )
   };
 
   tasks: any = [
@@ -25,7 +25,7 @@ export class TodosService {
       Executor: '',
       Id: 13,
       Tags: 'professional',
-      Title: 'Learn about Plootoooooooooooo',
+      Title: 'Learn about the ropes of this trade',
     },
     {
       Author: 'Daniel',
@@ -65,7 +65,12 @@ export class TodosService {
   /** PUBLIC PROPERTIES HERE **/
   /** PRIVATE PROPERTIES **/
   private tasksTotal: number;
-  private urlBase = 'https://todo101-api.azurewebsites.net/ServiceTodo.svc';
+  // PREVIOUS VERSION DEPLOYED ON AZURE
+  // private urlBase = 'https://todo101-api.azurewebsites.net/ServiceTodo.svc';
+  // THIS IS THE DEBUG-ON-VISUAL-STUDIO VERSION
+  private urlBase = 'http://localhost:50067/ServiceTodo.svc';
+  // THIS IS THE DEPLOYED VERSION ON MY PERSONAL HP WINDOWS
+  // private urlBase = 'http://localhost:2999/ServiceTodo.svc';
   private tasksComplete: number;
   private tasksLeft: number;
   private urlGetAll = '/findall';
@@ -74,7 +79,7 @@ export class TodosService {
   private urlDelete = '/delete';
 
   /** CONSTRUCTOR **/
-  constructor(private http: HttpClient) {
+  constructor ( private http: HttpClient ) {
     this.tasksTotal = -100;
     this.tasksComplete = -100;
     this.tasksLeft = -100;
@@ -90,27 +95,24 @@ export class TodosService {
   /** PRIVATE CALLS **/
   /** PUBLIC CALLS **/
 
-  apiGetAll() {
-    return this.http.get(this.urlBase + this.urlGetAll)
-      .catch(
-        error => Observable.throw(error)
-      )
+  apiGetAll () {
+    return this.http.get( this.urlBase + this.urlGetAll )
       .map(
         response => {
           this.tasks = response;
-          this.updateTasksCount(this.tasks);
-        })
+          this.updateTasksCount( this.tasks );
+        } )
       .subscribe(
         response => '',
-        error => console.log('apiGetAll() error:', error),
-        () => '');
+        error => console.log( 'apiGetAll() error:', error ),
+        () => '' );
   }
 
   /* THIS ACTION SHOULD HAPPEN ONLY WHEN COMPLETION, CREATION OR DELETION IS CALLED */
 
   // this.updateTasksCount();
 
-  apiCreate() {
+  apiCreate () {
     const todo = {
       'Author': 'DanieL Santos',
       'DateDone': '',
@@ -120,40 +122,40 @@ export class TodosService {
       'Title': 'Brand new personal tasks' + this.biggestID,
       'Id': this.biggestID++
     };
-    return this.http.post(this.urlBase + this.urlCreate, todo, this.httpOptions)
+    return this.http.post( this.urlBase + this.urlCreate, todo, this.httpOptions )
       .catch(
-        error => Observable.throw(error)
+        error => Observable.throw( error )
       )
       .map(
         response => {
-          console.log('creation result: ', response);
+          console.log( 'creation result: ', response );
           this.apiGetAll();
-        })
+        } )
       .subscribe(
         response => '',
-        error => console.log('apiCreate() error:', error),
-        () => '');
+        error => console.log( 'apiCreate() error:', error ),
+        () => '' );
   }
 
   //
-  apiEdit(id: string, title: string) {
-    return this.http.get(this.urlBase + this.urlEdit)
+  apiEdit ( id: string, title: string ) {
+    return this.http.get( this.urlBase + this.urlEdit )
       .catch(
-        error => Observable.throw(error)
+        error => Observable.throw( error )
       )
       .map(
         response => {
-          console.log('edit result: ', response);
+          console.log( 'edit result: ', response );
           this.apiGetAll();
-        })
+        } )
       .subscribe(
         response => '',
-        error => console.log('apiEdit() error:', error),
-        () => '');
+        error => console.log( 'apiEdit() error:', error ),
+        () => '' );
   }
 
   //
-  apiDelete(id: number) {
+  apiDelete ( id: number ) {
     const todo = {
       'Author': '',
       'DateDone': '',
@@ -163,43 +165,43 @@ export class TodosService {
       'Title': '-- deleted --',
       'Id': id
     };
-    return this.http.put(this.urlBase + this.urlDelete, this.httpOptions)
+    return this.http.put( this.urlBase + this.urlDelete, this.httpOptions )
       .catch(
-        error => Observable.throw(error)
+        error => Observable.throw( error )
       )
       .map(
         response => {
-          console.log('delete result: ', response);
+          console.log( 'delete result: ', response );
           this.apiGetAll();
-        })
+        } )
       .subscribe(
         response => '',
-        error => console.log('apiDelete() error:', error),
-        () => '');
+        error => console.log( 'apiDelete() error:', error ),
+        () => '' );
   }
 
-  updateTasksCount(tasks) {
+  updateTasksCount ( tasks ) {
     this.tasksTotal = 0;
     this.tasksComplete = 0;
     this.tasksLeft = 0;
     this.biggestID = 0;
 
     let i;
-    for (i = 0; i < tasks.length; i++) {
-      if (this.biggestID < tasks[i].Id) {
+    for ( i = 0; i < tasks.length; i++ ) {
+      if ( this.biggestID < tasks[ i ].Id ) {
         // console.log(i, 'old biggestID', this.biggestID);
-        this.biggestID = tasks[i].Id;
+        this.biggestID = tasks[ i ].Id;
         // console.log(i, 'new biggestID', this.biggestID);
       }
 
-      if (tasks[i].DateDone !== '') {
+      if ( tasks[ i ].DateDone !== '' ) {
         this.tasksComplete++;
       }
-      if (tasks[i].DateDone === '') {
+      if ( tasks[ i ].DateDone === '' ) {
         this.tasksLeft++;
       }
-      if (tasks[i].DateDone === '' && tasks[i].DateDue === '') {
-        console.log('w/o BOTH date');
+      if ( tasks[ i ].DateDone === '' && tasks[ i ].DateDue === '' ) {
+        console.log( 'w/o BOTH date' );
       }
 
       this.tasksTotal++;
@@ -207,23 +209,23 @@ export class TodosService {
     }
   }
 
-  toogleEditMode() {
+  toogleEditMode () {
     return this.editMode = !this.editMode;
   }
 
-  getEditMode() {
+  getEditMode () {
     return this.editMode;
   }
 
-  getTasksTotal() {
+  getTasksTotal () {
     return this.tasksTotal;
   }
 
-  getTasksComplete() {
+  getTasksComplete () {
     return this.tasksComplete;
   }
 
-  getTasksLeft() {
+  getTasksLeft () {
     return this.tasksLeft;
   }
 }
