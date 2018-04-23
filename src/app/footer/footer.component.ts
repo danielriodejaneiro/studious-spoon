@@ -19,4 +19,8 @@ export class FooterComponent {
       this.todosService.taskBeingEdited = 0;
     }
   }
+
+  reloadTaskFromServer() {
+    console.log('REPLACE THIS WITH A NEW GET CALL');
+  }
 }

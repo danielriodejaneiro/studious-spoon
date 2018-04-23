@@ -90,11 +90,6 @@ export class TodosService {
     // this.updateTasksCount(this.tasks);
   }
 
-  /** LIFECYCLE HOOKS **/
-
-  /** PRIVATE CALLS **/
-  /** PUBLIC CALLS **/
-
   apiGetAll () {
     return this.http.get( this.urlBase + this.urlGetAll )
       .map(

@@ -23,13 +23,13 @@ export class TodoEditComponent implements OnInit {
   // }
 
   onUpdateTodo(task) {
-    console.log('Edited');
-    this.t.apiEdit('', '');
+    console.log('Edit DISABLED if not authenticated');
+    // this.t.apiEdit('', '');
   }
 
   onDeleteTodo(task) {
-    console.log('Deleted');
-    this.t.apiDelete(task.id);
+    console.log('Deleted DISABLED if not authenticated');
+    // this.t.apiDelete(task.id);
   }
 
 }
