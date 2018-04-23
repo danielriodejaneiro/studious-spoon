@@ -1,3 +1,9 @@
 <h1>Add task</h1>
-<input class="task-title" type="text" value="Create here a brand new task">
-<button (click)="onCreateTask()">Create</button>
+<form #heroForm="ngForm" class="flex fc">
+    <input class="task-title" type="text" [(ngModel)]="textPlaceholder" name="todoAdd" (click)="onFocusInput()" #spy placeholder="Create here a brand new task">
+    <button (click)="onCreateTask()">Create</button>
+    <h4 style="font-weight: normal">
+        {{spy.value ? 'This value is going to be saved: ' : ''}}
+        <span style="color: crimson; font-weight: bold">{{spy.value ? spy.value : ''}}</span>
+    </h4>
+</form>

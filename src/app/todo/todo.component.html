@@ -1,19 +1,14 @@
-<div class="happy" *ngIf="todosService.getTasksLeft() === 0">
-  <!--<div class="happy" *ngIf="todosService.getTasksLeft() !== 0">-->
-  <h1>That's impressive!</h1>
-  <h2>If you don't have any extra task, just go watch Black Panther!</h2>
+<div class="happy" *ngIf="!todosService">
+  <h1>Wait for with the server...</h1>
 </div>
 
-<div class="happy" *ngIf="todosService.getTasksLeft() < 0">
+<!-- <div class="happy" *ngIf="todosService.getTasksLeft() < 0">
   <h6 style="color: crimson">That's an erroneous condition.</h6>
-</div>
+</div> -->
 
-<ul class="active-tasks" *ngIf="todosService.getTasksLeft() > 0">
-  <!--<ul class="active-tasks">-->
-
-  <li class="task" *ngFor="let task of todosService.tasks; let i = index"
-      [ngClass]="{completed: isTaskCompleted(task)}"
-      (click)="onSelectTask(task, i)">
+<!-- <ul class="active-tasks" *ngIf="todosService.getTasksLeft() > 0"> -->
+<ul class="active-tasks" *ngIf="todosService.connected">
+  <li class="task" *ngFor="let task of todosService.tasks; let i = index" [ngClass]="{completed: isTaskCompleted(task)}" (click)="onSelectTask(task, i)">
 
     <span class="task-id">{{task.Id}}</span>
 
@@ -22,4 +17,3 @@
     </span>
   </li>
 </ul>
-

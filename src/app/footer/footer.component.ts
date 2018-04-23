@@ -1,26 +1,27 @@
-import {Component} from '@angular/core';
-import {TodosService} from '../todos.service';
+import { Component } from '@angular/core';
+import { TodosService } from '../todos.service';
 
-@Component({
+@Component( {
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
-})
+  styleUrls: [ './footer.component.scss' ]
+} )
 export class FooterComponent {
   todosService;
 
-  constructor(private t: TodosService) {
+  constructor ( private t: TodosService ) {
     this.todosService = t;
   }
 
-  checkIfEditEnable() {
-    this.todosService.toogleEditMode();
-    if (this.todosService.taskBeingEdited === -1) {
-      this.todosService.taskBeingEdited = 0;
-    }
-  }
+  // checkIfEditEnable() {
+  //   this.todosService.toogleEditMode();
+  //   if (this.todosService.taskBeingEdited === -1) {
+  //     this.todosService.taskBeingEdited = 0;
+  //   }
+  // }
 
-  reloadTaskFromServer() {
-    console.log('REPLACE THIS WITH A NEW GET CALL');
+  reloadTaskFromServer () {
+    this.todosService.apiGetAll();
+    // console.log( 'REPLACE THIS WITH A NEW GET CALL' );
   }
 }

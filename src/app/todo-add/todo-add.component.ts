@@ -1,20 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {TodosService} from '../todos.service';
+import { Component, OnInit } from '@angular/core';
+import { TodosService } from '../todos.service';
 
-@Component({
+@Component( {
   selector: 'app-todo-add',
   templateUrl: './todo-add.component.html',
-  styleUrls: ['./todo-add.component.scss']
-})
+  styleUrls: [ './todo-add.component.scss' ]
+} )
 export class TodoAddComponent implements OnInit {
 
-  constructor(private t: TodosService) {
+  textPlaceholder: string;
+
+  constructor ( private t: TodosService ) {
+    this.textPlaceholder = '';
   }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  onCreateTask() {
-    this.t.apiCreate();
+  onCreateTask () {
+    this.t.apiCreate( this.textPlaceholder );
+    // console.log( this.textPlaceholder );
+
+  }
+
+  onFocusInput () {
+    this.textPlaceholder = '';
   }
 }

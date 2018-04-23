@@ -10,7 +10,7 @@ export class TodosService {
   private editMode: boolean;
   taskBeingEdited: number;
   biggestID: number;
-
+  connected = false;
   httpOptions = {
     headers: new HttpHeaders( {
       'Content-Type': 'application/json'
@@ -94,6 +94,7 @@ export class TodosService {
     return this.http.get( this.urlBase + this.urlGetAll )
       .map(
         response => {
+          this.connected = true;
           this.tasks = response;
           this.updateTasksCount( this.tasks );
         } )
@@ -107,73 +108,89 @@ export class TodosService {
 
   // this.updateTasksCount();
 
-  apiCreate () {
+  apiCreate ( taskTitle: string ) {
+    this.biggestID++;
+
+    // const todo = {
+    //   'Author': 'DanieL Santos',
+    //   'DateDone': '',
+    //   'DateDue': '2018-06-27',
+    //   'Executor': 'Daniel',
+    //   'Tags': 'personal',
+    //   'Title': 'Brand new personal tasks' + this.biggestID,
+    //   'Id': this.biggestID.toString()
+    // };
+
     const todo = {
-      'Author': 'DanieL Santos',
-      'DateDone': '',
-      'DateDue': '2018-06-27',
-      'Executor': 'Daniel',
-      'Tags': 'personal',
-      'Title': 'Brand new personal tasks' + this.biggestID,
-      'Id': this.biggestID++
+      "Author": "DanieL Santos",
+      "DateDone": "2010-02-03",
+      "DateDue": "2020-01-01",
+      "Executor": "superdaniel",
+      "Tags": "professional",
+      "Title": "4 Through ANGULAR",
+      "Id": this.biggestID
     };
+
+    taskTitle != '' ? todo.Title = taskTitle : console.log( 'Empty task was replaced by default title' );
+
     return this.http.post( this.urlBase + this.urlCreate, todo, this.httpOptions )
-      .catch(
-        error => Observable.throw( error )
-      )
-      .map(
-        response => {
-          console.log( 'creation result: ', response );
-          this.apiGetAll();
-        } )
       .subscribe(
-        response => '',
-        error => console.log( 'apiCreate() error:', error ),
-        () => '' );
+        response => console.log( 'apiCreate() OK: ', response ),
+        error => console.log( 'apiCreate() NOK:', error ),
+        () => console.log( '... done ...' ) );
   }
 
-  //
-  apiEdit ( id: string, title: string ) {
-    return this.http.get( this.urlBase + this.urlEdit )
-      .catch(
-        error => Observable.throw( error )
-      )
-      .map(
-        response => {
-          console.log( 'edit result: ', response );
-          this.apiGetAll();
-        } )
-      .subscribe(
-        response => '',
-        error => console.log( 'apiEdit() error:', error ),
-        () => '' );
-  }
+
+  // .map(
+  // response => {
+  // console.log( 'creation result: ', response );
+  // this.apiGetAll();
+  // } )
+  //   return this.http.post( this.urlBase + this.urlCreate, todo, this.httpOptions )
+
+
 
   //
-  apiDelete ( id: number ) {
-    const todo = {
-      'Author': '',
-      'DateDone': '',
-      'DateDue': '',
-      'Executor': '',
-      'Tags': '',
-      'Title': '-- deleted --',
-      'Id': id
-    };
-    return this.http.put( this.urlBase + this.urlDelete, this.httpOptions )
-      .catch(
-        error => Observable.throw( error )
-      )
-      .map(
-        response => {
-          console.log( 'delete result: ', response );
-          this.apiGetAll();
-        } )
-      .subscribe(
-        response => '',
-        error => console.log( 'apiDelete() error:', error ),
-        () => '' );
-  }
+  // apiEdit ( id: string, title: string ) {
+  //   return this.http.get( this.urlBase + this.urlEdit )
+  //     .catch(
+  //       error => Observable.throw( error )
+  //     )
+  //     .map(
+  //       response => {
+  //         console.log( 'edit result: ', response );
+  //         this.apiGetAll();
+  //       } )
+  //     .subscribe(
+  //       response => '',
+  //       error => console.log( 'apiEdit() error:', error ),
+  //       () => '' );
+  // }
+
+  // apiDelete ( id: number ) {
+  //   const todo = {
+  //     'Author': '',
+  //     'DateDone': '',
+  //     'DateDue': '',
+  //     'Executor': '',
+  //     'Tags': '',
+  //     'Title': '-- deleted --',
+  //     'Id': id
+  //   };
+  //   return this.http.put( this.urlBase + this.urlDelete, this.httpOptions )
+  //     .catch(
+  //       error => Observable.throw( error )
+  //     )
+  //     .map(
+  //       response => {
+  //         console.log( 'delete result: ', response );
+  //         this.apiGetAll();
+  //       } )
+  //     .subscribe(
+  //       response => '',
+  //       error => console.log( 'apiDelete() error:', error ),
+  //       () => '' );
+  // }
 
   updateTasksCount ( tasks ) {
     this.tasksTotal = 0;

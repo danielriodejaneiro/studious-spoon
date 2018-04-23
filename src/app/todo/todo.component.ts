@@ -1,51 +1,58 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {TodosService} from '../todos.service';
-import {Observable} from 'rxjs/observable';
+import { Component, OnChanges, OnInit, SimpleChanges, AfterViewInit } from '@angular/core';
+import { TodosService } from '../todos.service';
+import { Observable } from 'rxjs/observable';
 
-@Component({
+@Component( {
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
-})
-export class TodoComponent implements OnInit {
+  styleUrls: [ './todo.component.scss' ]
+} )
+export class TodoComponent implements OnInit, AfterViewInit {
+
   todosService;
 
-  constructor(private t: TodosService) {
+  constructor ( private t: TodosService ) {
     this.todosService = t;
     // this.t.tasks = this.t.apiGetAll();
-    // this.t.updateTasksCount(this.t.tasks);
+    // this.t.updateTasksCount( this.t.tasks );
   }
 
-  ngOnInit() {
+  ngOnInit () {
+    // console.log( 'BEFORE:', this.todosService );
+    // this.todosService.apiGetAll();
   }
 
-  onSelectTask(task, i) {
-    console.log('list #:', i, ' // ID:', task.Id);
+  ngAfterViewInit () {
+    // console.log( 'AFTER:', this.todosService );
+  }
 
-    if (!this.todosService.editMode) {
-      this.onComplete(task, i);
-      this.todosService.updateTasksCount(this.todosService.tasks);
+  onSelectTask ( task, i ) {
+    console.log( 'list #:', i, ' // ID:', task.Id );
+
+    if ( !this.todosService.editMode ) {
+      this.onComplete( task, i );
+      this.todosService.updateTasksCount( this.todosService.tasks );
     } else {
       this.todosService.taskBeingEdited = task.Id;
     }
   }
 
-  isTaskCompleted(task) {
+  isTaskCompleted ( task ) {
     return task.DateDue !== '' && task.DateDone !== '';
   }
 
-  onComplete(task, i) {
+  onComplete ( task, i ) {
 
-    if (this.isTaskCompleted(task)) {
+    if ( this.isTaskCompleted( task ) ) {
       // task.DateDone = '';
-      this.todosService.tasks[i].DateDone = '';
-      this.todosService.updateTasksCount(this.todosService.tasks);
+      this.todosService.tasks[ i ].DateDone = '';
+      this.todosService.updateTasksCount( this.todosService.tasks );
     }
 
     else {
-      if (task.DateDone === '' && task.DateDue !== '') {
+      if ( task.DateDone === '' && task.DateDue !== '' ) {
         task.DateDone = '2100-12-31';
-      } else if (task.DateDone === '' && task.DateDue === '') {
+      } else if ( task.DateDone === '' && task.DateDue === '' ) {
         task.DateDone = '2100-12-31';
         task.DateDue = '1999-01-01';
       } else {
